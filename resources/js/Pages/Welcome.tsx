@@ -23,22 +23,20 @@ export default function Welcome({
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [opacity, setOpacity] = useState(0); // opacity for fade effect
+  const [opacity, setOpacity] = useState(1); // opacity for fade effect
 
-  // Change the image every 1 second
   useEffect(() => {
     const interval = setInterval(() => {
       setOpacity(0); // Start fading out the image
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
         setOpacity(1); // Fade in the next image
-      }, 300); // Wait for the fade out effect to finish
-    }, 6000); // Change every 1 second
+      }, 2500); // Wait for the fade out effect to finish
+    }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval); // Clean up the interval on unmount
   }, [images.length]);
 
-  // Manually change image on Next and Prev click
   const nextImage = () => {
     setOpacity(0); // Start fade out
     setTimeout(() => {
@@ -102,7 +100,7 @@ export default function Welcome({
             <main className="mt-2 flex-1">
               <section
                 className="w-full relative min-h-[50vh] bg-cover bg-center"
-                style={{ backgroundImage: 'url("/assets/img/bg.png")', backgroundPosition: 'top' }}
+                style={{ backgroundImage: 'url("/assets/img/str-bg.png")', backgroundPosition: 'bottom' }}
               >
                 <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
                 <div className="flex flex-col-reverse md:flex-row items-center justify-between w-full h-full px-4 py-8 relative z-10">
@@ -121,26 +119,33 @@ export default function Welcome({
 
                   <div className="flex-1 max-w-xs md:max-w-md lg:max-w-lg mt-8 md:mt-0">
                     <div className="relative">
-                      <div className="transition-opacity duration-500 ease-in-out opacity-0" style={{ opacity }}>
-                        <img
+                      <div
+                        className="transition-opacity duration-500 ease-in-out w-full h-[360px]"
+                        style={{ opacity }}
+                      >
+                        <img src="assets/img/car5.png"
+                          alt="car"
+                          className="w-full h-auto object-contain object-contain"
+                        />
+                        {/* <img
                           src={images[currentIndex]}
                           alt="car"
-                          className="w-full h-auto object-contain h-[340px] object-contain"
-                        />
+                          className="w-full h-auto object-contain object-contain"
+                        /> */}
                       </div>
-                      <div className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 z-10 text-white cursor-pointer">
+                      {/* <div className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 z-10 text-white cursor-pointer">
                         <FaChevronLeft onClick={prevImage} size={20} />
                       </div>
                       <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10 text-white cursor-pointer">
                         <FaChevronRight onClick={nextImage} size={20} />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
               </section>
 
-              <div className="absolute bottom-[-100px] left-0 right-0 px-[10%] py-16">
-              <div className="w-full flex gap-4 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
+              <div className="relative bottom-0 left-0 right-0 px-[10%] py-16 lg:absolute lg:bottom-[-100px]">
+                <div className="w-full flex gap-4 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
                   <div className="pick-up mt-4">
                     <label>Pick Up Location</label>
                     <select className="w-full px-32 py-2 border border-gray-300 rounded-lg">
@@ -205,6 +210,13 @@ export default function Welcome({
             </main>
           </div>
         </div>
+        <section className='w-full'>
+          <div className='m-auto px-6 pt-4 lg:pt-32'>
+            <div className='w-full bg-green-500'>
+              <h1>Here is com</h1>
+            </div>
+          </div>
+        </section>
         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
           Laravel v{laravelVersion} (PHP v{phpVersion})
         </footer>
