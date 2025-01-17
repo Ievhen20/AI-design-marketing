@@ -1,10 +1,13 @@
+import React, { useState, useEffect } from 'react';
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import GuestNav from '@/Components/GuestNav';
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
+import Slider from "react-slick";
 import 'react-datepicker/dist/react-datepicker.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Welcome({
   auth,
@@ -13,6 +16,25 @@ export default function Welcome({
 }: PageProps<{ laravelVersion: string; phpVersion: string }>) {
   const [startDate, setStartDate] = useState<Date | null>(null); // State for start date
   const [endDate, setEndDate] = useState<Date | null>(null); // State for end date
+
+  const carImages: string[] = [
+    "/assets/img/car1.png",
+    "/assets/img/car2.png",
+    "/assets/img/car3.png",
+    "/assets/img/car4.png",
+  ];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 8000,
+    arrows: true,
+    fade: true,
+  };
 
   return (
     <>
@@ -79,13 +101,21 @@ export default function Welcome({
                   </div>
 
                   <div className="flex-1 max-w-xs md:max-w-md lg:max-w-lg mt-8 md:mt-0">
-                    <div className="relative">
-                      <div className="transition-opacity duration-500 ease-in-out w-full h-[360px] mt-32">
-                        <img src="assets/img/car5.png"
-                          alt="car"
-                          className="w-full h-auto object-contain object-contain"
-                        />
-                      </div>
+                    <div className="relative w-full pt-32 pr-12">
+                      <Slider {...settings}>
+                        {carImages.map((carImage, index) => (
+                          <div
+                            key={index}
+                            className="transition-opacity duration-2000 ease-in-out opacity-0 opacity-100"
+                          >
+                            <img
+                              src={carImage}
+                              alt={`Car ${index + 1}`}
+                              className="w-full h-auto transition-opacity duration-2000 ease-in-out opacity-100"
+                            />
+                          </div>
+                        ))}
+                      </Slider>
                     </div>
                   </div>
                 </div>
