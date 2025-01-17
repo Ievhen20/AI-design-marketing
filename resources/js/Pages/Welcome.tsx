@@ -3,7 +3,6 @@ import { Head, Link } from '@inertiajs/react';
 import GuestNav from '@/Components/GuestNav';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import React, { useState, useEffect } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // For next and prev icons
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -14,44 +13,6 @@ export default function Welcome({
 }: PageProps<{ laravelVersion: string; phpVersion: string }>) {
   const [startDate, setStartDate] = useState<Date | null>(null); // State for start date
   const [endDate, setEndDate] = useState<Date | null>(null); // State for end date
-
-  // Image list for the slider
-  const images = [
-    "/assets/img/car1.png",
-    "/assets/img/car2.png",
-    "/assets/img/car3.png",
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [opacity, setOpacity] = useState(1); // opacity for fade effect
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOpacity(0); // Start fading out the image
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        setOpacity(1); // Fade in the next image
-      }, 2500); // Wait for the fade out effect to finish
-    }, 5000); // Change every 5 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on unmount
-  }, [images.length]);
-
-  const nextImage = () => {
-    setOpacity(0); // Start fade out
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setOpacity(1); // Fade in the next image
-    }, 500); // Wait for the fade out effect to finish
-  };
-
-  const prevImage = () => {
-    setOpacity(0); // Start fade out
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-      setOpacity(1); // Fade in the previous image
-    }, 500); // Wait for the fade out effect to finish
-  };
 
   return (
     <>
@@ -119,26 +80,12 @@ export default function Welcome({
 
                   <div className="flex-1 max-w-xs md:max-w-md lg:max-w-lg mt-8 md:mt-0">
                     <div className="relative">
-                      <div
-                        className="transition-opacity duration-500 ease-in-out w-full h-[360px]"
-                        style={{ opacity }}
-                      >
+                      <div className="transition-opacity duration-500 ease-in-out w-full h-[360px] mt-32">
                         <img src="assets/img/car5.png"
                           alt="car"
                           className="w-full h-auto object-contain object-contain"
                         />
-                        {/* <img
-                          src={images[currentIndex]}
-                          alt="car"
-                          className="w-full h-auto object-contain object-contain"
-                        /> */}
                       </div>
-                      {/* <div className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 z-10 text-white cursor-pointer">
-                        <FaChevronLeft onClick={prevImage} size={20} />
-                      </div>
-                      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10 text-white cursor-pointer">
-                        <FaChevronRight onClick={nextImage} size={20} />
-                      </div> */}
                     </div>
                   </div>
                 </div>
