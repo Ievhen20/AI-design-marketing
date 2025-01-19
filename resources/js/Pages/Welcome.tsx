@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import GuestNav from '@/Components/GuestNav';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import DatePicker from 'react-datepicker';
@@ -101,7 +103,7 @@ export default function Welcome({
                   </div>
 
                   <div className="flex-1 max-w-xs md:max-w-md lg:max-w-lg mt-8 md:mt-0">
-                    <div className="relative w-full pt-32 pr-12">
+                    <div className="relative w-full pt-12 pr-12">
                       <Slider {...settings}>
                         {carImages.map((carImage, index) => (
                           <div
@@ -190,7 +192,9 @@ export default function Welcome({
         <section className='w-full'>
           <div className='m-auto px-6 pt-4 lg:pt-32'>
             <div className='w-full bg-green-500'>
-              <h1>Here is com</h1>
+              {/* <FontAwesomeIcon icon={faStar} className="text-yellow-500 mr-2" />
+              <FontAwesomeIcon icon={faStar} className="text-yellow-500 mr-2" /> */}
+              
             </div>
           </div>
         </section>
