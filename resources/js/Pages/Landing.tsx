@@ -110,7 +110,7 @@ export default function Welcome({
 
             <main className="mt-2 flex-1">
               <section
-                className="w-full relative min-h-[50vh] bg-cover bg-center"
+                className="w-full relative min-h-[55vh] bg-cover bg-center"
                 style={{ backgroundImage: 'url("/assets/img/str-bg.png")', backgroundPosition: 'bottom' }}
               >
                 <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
@@ -149,7 +149,7 @@ export default function Welcome({
                 </div>
               </section>
 
-              <div className="relative bottom-0 left-0 right-0 px-[15%] py-16 lg:absolute lg:bottom-[-138px]">
+              <div className="relative bottom-0 left-0 right-0 px-[15%] py-16 lg:absolute lg:top-[48vh]">
                 <div className="w-full flex gap-2 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
                   <div className='flex flex-col justify-center items-center'>
                     <div className="w-full px-4 py-1 bg-white border-b-2 border-b-gray-300">
@@ -222,7 +222,17 @@ export default function Welcome({
                         </div>
                       </div>
                     </div>
-                    <div className='book-btn w-full mt-4'>
+                    <div className='flex gap-8 justify-between items-center text-left py-2'>
+                      <div className='flex gap-2 items-center'>
+                        <input type='checkbox' className='mx-2' />
+                        <p>Drop car off at different location</p>
+                      </div>
+                      <div className='flex gap-2 items-center'>
+                        <input type='checkbox' checked />
+                        <p>Driver aged between 30 ~ 65?</p>
+                      </div>
+                    </div>
+                    <div className='book-btn w-full mt-2'>
                       <button className='btn w-full py-1 px-auto rounded-lg bg-gray-600 text-white border-[1px] border-gray-600 hover:text-black hover:bg-white'>Book Now</button>
                     </div>
                   </div>
@@ -231,7 +241,7 @@ export default function Welcome({
             </main>
           </div>
         </div>
-        <section className='w-full px-6 pt-4 lg:pt-32'>
+        <section className='w-full px-6 pt-4 lg:pt-24'>
           {/* <div className='m-auto px-6 pt-4 lg:pt-32'>
             <div className='w-full flex gap-4 justify-center items-center'>
               <span className="fcd9eec8fb bfe53e640d c2cc050fb8 a84c4cb7ce" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50px"><path d="M2.75 12h18.5c.69 0 1.25.56 1.25 1.25V18l.75-.75H.75l.75.75v-4.75c0-.69.56-1.25 1.25-1.25m0-1.5A2.75 2.75 0 0 0 0 13.25V18c0 .414.336.75.75.75h22.5A.75.75 0 0 0 24 18v-4.75a2.75 2.75 0 0 0-2.75-2.75zM0 18v3a.75.75 0 0 0 1.5 0v-3A.75.75 0 0 0 0 18m22.5 0v3a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-1.5 0m-.75-6.75V4.5a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 2.25 4.5v6.75a.75.75 0 0 0 1.5 0V4.5a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 0 1.5 0m-13.25-3h7a.25.25 0 0 1 .25.25v2.75l.75-.75h-9l.75.75V8.5a.25.25 0 0 1 .25-.25m0-1.5A1.75 1.75 0 0 0 6.75 8.5v2.75c0 .414.336.75.75.75h9a.75.75 0 0 0 .75-.75V8.5a1.75 1.75 0 0 0-1.75-1.75z"></path></svg></span>
@@ -244,6 +254,44 @@ export default function Welcome({
               <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><path d="M21.75 12c0 5.385-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12 6.615 2.25 12 2.25s9.75 4.365 9.75 9.75zm1.5 0C23.25 5.787 18.213.75 12 .75S.75 5.787.75 12 5.787 23.25 12 23.25 23.25 18.213 23.25 12zm-10.5 0V8.25a.75.75 0 0 0-1.5 0V12a.75.75 0 0 0 1.5 0zm-1.28.53l4.687 4.688a.75.75 0 0 0 1.06-1.06L12.53 11.47a.75.75 0 0 0-1.06 1.06z"></path></svg>
             </div>
           </div> */}
+          <div className='w-full px-[10%]'>
+            <div className='references w-full'>
+              <div className='flex flex-col'>
+                <h1 className='text-3xl font-[700] text-black py-8 mt-4'>Our service gives you access to the biggest brands in car rental.</h1>
+                <div className='flex justify-start items-center gap-12 flex-wrap lg:flex-nowrap'>
+                  {/* <div className='flex flex-col justify-center'> */}
+                    {references.map((reference) => (
+                      <div key={reference.id} className='flex flex-col m-auto text-center'>
+                        <img src={reference.logo} className='w-auto h-8 object-contain shadow-lg' />
+                        <p className='mt-4'>{reference.heading}</p>
+                      </div>
+                    ))}
+                  {/* </div> */}
+                </div>
+              </div>
+            </div>
+            <div className='reviews flex flex-nowrap mt-16 lg:flex-wrap'>
+              <h2 className="text-3xl text-black font-semibold mb-6">Over 5 million Customer Reviews</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-center">
+                {reviews.map((review) => (
+                  <div key={review.id} className="bg-white p-6 rounded-lg shadow-md">
+                    <div className="flex items-center mb-4">
+                      <img
+                        src={review.img}
+                        alt={review.title}
+                        className="w-[40%] h-auto rounded-sm object-cover mr-4"
+                      />
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2">{review.title}</h3>
+                        <div className="flex space-x-1">{getStarRating(review.score)}</div>
+                      </div>
+                    </div>
+                    <p className="text-gray-600">{review.content}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
           Laravel v{laravelVersion} (PHP v{phpVersion})
