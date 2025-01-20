@@ -3,26 +3,15 @@ import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import GuestNav from '@/Components/GuestNav';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import DatePicker from 'react-datepicker';
 import Slider from "react-slick";
 import 'react-datepicker/dist/react-datepicker.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { addDays } from 'date-fns';
-import { reviews } from '@/utility/reviews';
-import { references } from '@/utility/references';
+import Header from '@/Components/Header';
 
 export default function Welcome({
   auth,
-  laravelVersion,
-  phpVersion,
 }: PageProps<{ laravelVersion: string; phpVersion: string }>) {
-  const [startDate, setStartDate] = useState<Date | null>(null); // Pickup Date
-  const [endDate, setEndDate] = useState<Date | null>(null); // Dropoff Date
-  const [startTime, setStartTime] = useState<string>('00:00'); // Pickup time
-  const [endTime, setEndTime] = useState<string>('00:00'); // Dropoff time
 
   const carImages: string[] = [
     "/assets/img/car1.png",
@@ -43,74 +32,17 @@ export default function Welcome({
     fade: true,
   };
 
-  const disableBeforePickupDate = (date: Date) => {
-    if (startDate) {
-      return date < startDate;
-    }
-    return false;
-  };
-
-  const getStarRating = (score: number) => {
-    let stars = [];
-    for (let i = 0; i < 5; i++) {
-      stars.push(
-        <FontAwesomeIcon
-          key={i}
-          icon={faStar}
-          className={`text-lg ${i < score ? 'text-yellow-400' : 'text-gray-300'}`}
-        />
-      );
-    }
-    return stars;
-  };
-
   return (
     <>
       <Head title="Welcome" />
       <div className="text-black/50 dark:bg-black dark:text-white/50">
         <div className="relative flex items-center justify-center selection:bg-[#FF2D20] selection:text-white">
           <div className="relative w-full flex flex-col px-0 py-8">
-            <header className="flex px-[5%] flex-col md:flex-row items-center justify-between">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex justify-center items-center px-4">
-                  <ApplicationLogo />
-                </div>
-                <div className="guest-access">
-                  <div className="flex justify-center items-center px-4">
-                    <GuestNav />
-                  </div>
-                </div>
-              </div>
-              <nav className="-mx-3 flex flex-1 justify-end">
-                {auth.user ? (
-                  <Link
-                    href={route('dashboard')}
-                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <>
-                    <Link
-                      href={route('login')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition text-nowrap hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Log in
-                    </Link>
-                    <Link
-                      href={route('register')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Register
-                    </Link>
-                  </>
-                )}
-              </nav>
-            </header>
+            <Header auth={auth} />
 
             <main className="mt-2 flex-1">
               <section
-                className="w-full relative min-h-[50vh] bg-cover bg-center"
+                className="w-full relative min-h-[45vh] bg-cover bg-center"
                 style={{ backgroundImage: 'url("/assets/img/str-bg.png")', backgroundPosition: 'bottom' }}
               >
                 <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
@@ -148,86 +80,6 @@ export default function Welcome({
                   </div>
                 </div>
               </section>
-
-              <div className="relative bottom-0 left-0 right-0 px-[15%] py-16 lg:absolute lg:bottom-[-138px]">
-                <div className="w-full flex gap-2 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
-                  <div className='flex flex-col justify-center items-center'>
-                    <div className="w-full px-4 py-1 bg-white border-b-2 border-b-gray-300">
-                      <div className="flex items-center justify-between mb-4 space-x-4">
-                        {/* Pickup Date */}
-                        <div className="pickup-date w-full sm:w-1/2 md:w-1/3">
-                          <div className="relative max-w-sm">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                              </svg>
-                            </div>
-                            <DatePicker
-                              selected={startDate}
-                              onChange={(date: Date) => setStartDate(date)}
-                              dateFormat="MMMM d, yyyy"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholderText="Select pickup date"
-                              minDate={new Date()}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Pickup Time */}
-                        <div className="pickup-time w-full sm:w-1/2 md:w-1/3">
-                          <form className="max-w-[8rem] mx-auto">
-                            <input
-                              type="time"
-                              className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              min="09:00"
-                              max="18:00"
-                              value={startTime}
-                              onChange={(e) => setStartTime(e.target.value)}
-                            />
-                          </form>
-                        </div>
-
-                        {/* Dropoff Date */}
-                        <div className="drop-off-date w-full sm:w-1/2 md:w-1/3">
-                          <div className="relative">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                              </svg>
-                            </div>
-                            <DatePicker
-                              selected={endDate}
-                              onChange={(date: Date) => setEndDate(date)}
-                              dateFormat="MMMM d, yyyy"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholderText="Select dropoff date"
-                              minDate={startDate ? addDays(startDate, 1) : new Date()}
-                              excludeDates={[startDate]}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Dropoff Time */}
-                        <div className="drop-off-time w-full sm:w-1/2 md:w-1/3">
-                          <form className="max-w-[8rem] mx-auto">
-                            <input
-                              type="time"
-                              className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              min="09:00"
-                              max="18:00"
-                              value={endTime}
-                              onChange={(e) => setEndTime(e.target.value)}
-                            />
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    <div className='book-btn w-full mt-4'>
-                      <button className='btn w-full py-1 px-auto rounded-lg bg-gray-600 text-white border-[1px] border-gray-600 hover:text-black hover:bg-white'>Book Now</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </main>
           </div>
         </div>
@@ -246,7 +98,7 @@ export default function Welcome({
           </div> */}
         </section>
         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-          Laravel v{laravelVersion} (PHP v{phpVersion})
+          Footer
         </footer>
       </div>
     </>

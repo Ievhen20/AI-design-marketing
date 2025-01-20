@@ -14,6 +14,41 @@ Route::get('/', function () {
 	]);
 });
 
+Route::get('/hire-car', function () {
+	return Inertia::render('HireCar', [
+		'canLogin' => Route::has('login'),
+		'canRegister' => Route::has('register'),
+	]);
+});
+
+Route::get('/hire-van', function () {
+	return Inertia::render('HireVan', [
+		'canLogin' => Route::has('login'),
+		'canRegister' => Route::has('register'),
+	]);
+});
+
+Route::get('/about', function () {
+	return Inertia::render('About', [
+		'canLogin' => Route::has('login'),
+		'canRegister' => Route::has('register'),
+	]);
+});
+
+Route::get('/blog', function () {
+	return Inertia::render('Blog', [
+		'canLogin' => Route::has('login'),
+		'canRegister' => Route::has('register'),
+	]);
+});
+
+Route::get('/contact', function () {
+	return Inertia::render('Contact', [
+		'canLogin' => Route::has('login'),
+		'canRegister' => Route::has('register'),
+	]);
+});
+
 Route::get('/dashboard', function () {
 	return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -3,7 +3,6 @@ import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import Header from '@/Components/Header';
 import GuestNav from '@/Components/GuestNav';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import DatePicker from 'react-datepicker';
@@ -16,7 +15,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function Landing({
+export default function HireVan({
   auth,
   laravelVersion,
   phpVersion,
@@ -68,11 +67,47 @@ export default function Landing({
 
   return (
     <>
-      <Head title="Landing" />
+      <Head title="HireVan" />
       <div className="text-black/50 dark:bg-black dark:text-white/50">
         <div className="relative flex items-center justify-center selection:bg-[#FF2D20] selection:text-white">
           <div className="relative w-full flex flex-col px-0 py-8">
-          <Header auth={auth} />
+            <header className="flex px-[5%] flex-col md:flex-row items-center justify-between">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex justify-center items-center px-4">
+                  <ApplicationLogo />
+                </div>
+                <div className="guest-access">
+                  <div className="flex justify-center items-center px-4">
+                    <GuestNav />
+                  </div>
+                </div>
+              </div>
+              <nav className="-mx-3 flex flex-1 justify-end">
+                {auth.user ? (
+                  <Link
+                    href={route('dashboard')}
+                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href={route('login')}
+                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition text-nowrap hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                    >
+                      Log in
+                    </Link>
+                    <Link
+                      href={route('register')}
+                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                    >
+                      Register
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </header>
 
             <main className="mt-2 flex-1">
               <section
