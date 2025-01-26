@@ -229,7 +229,7 @@ export default function HireCar({
                         <p>Drop car off at different location</p>
                       </div>
                       <div className='flex gap-2 items-center'>
-                        <input type='checkbox' checked={true} />
+                        <input type='checkbox' />
                         <p>Driver aged between 30 ~ 65?</p>
                       </div>
                     </div>

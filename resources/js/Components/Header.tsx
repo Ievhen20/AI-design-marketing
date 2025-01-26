@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import GuestNav from '@/Components/GuestNav';
+import Navbar from '@/Components/Navbar';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 
 interface HeaderProps {
@@ -16,18 +17,22 @@ const Header: React.FC<HeaderProps> = ({ auth }) => {
         </div>
         <div className="guest-access">
           <div className="flex justify-center items-center px-4">
-            <GuestNav />
+            {
+              auth.user ? <Navbar /> : <GuestNav />
+            }
+            {/* <GuestNav /> */}
           </div>
         </div>
       </div>
       <nav className="-mx-3 flex flex-1 justify-end">
         {auth.user ? (
-          <Link
-            href={route('dashboard')}
-            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-          >
-            Dashboard
-          </Link>
+          // <Link
+          //   href={route('dashboard')}
+          //   className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+          // >
+          //   Dashboard
+          // </Link>
+          <></>
         ) : (
           <>
             <Link

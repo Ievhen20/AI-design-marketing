@@ -117,89 +117,104 @@ export default function Landing({
 
               <div className="relative bottom-0 left-0 right-0 px-[15%] py-16 lg:absolute lg:top-[48vh]">
                 <div className="w-full flex gap-2 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
-                  <div className='flex flex-col justify-center items-center'>
-                    <div className="w-full px-4 py-1 bg-white border-b-2 border-b-gray-300">
-                      <div className="flex items-center justify-between mb-4 space-x-4">
-                        {/* Pickup Date */}
-                        <div className="pickup-date w-full sm:w-1/2 md:w-1/3">
-                          <div className="relative max-w-sm">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                              </svg>
-                            </div>
-                            <DatePicker
-                              selected={startDate}
-                              onChange={(date: Date) => setStartDate(date)}
-                              dateFormat="MMMM d, yyyy"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholderText="Select pickup date"
-                              minDate={new Date()}
-                            />
-                          </div>
-                        </div>
+                  <div className="flex justify-between gap-12">
+                    <div className="flex flex-col justify-start">
+                      <div className="search-car">
+                        <select>
+                          <option>Select Car...</option>
+                          <option>2</option>
+                        </select>
+                      </div>
+                      <div className="pick-up-address">
 
-                        {/* Pickup Time */}
-                        <div className="pickup-time w-full sm:w-1/2 md:w-1/3">
-                          <form className="max-w-[8rem] mx-auto">
-                            <input
-                              type="time"
-                              className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              min="09:00"
-                              max="18:00"
-                              value={startTime}
-                              onChange={(e) => setStartTime(e.target.value)}
-                            />
-                          </form>
-                        </div>
-
-                        {/* Dropoff Date */}
-                        <div className="drop-off-date w-full sm:w-1/2 md:w-1/3">
-                          <div className="relative">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                              </svg>
-                            </div>
-                            <DatePicker
-                              selected={endDate}
-                              onChange={(date: Date) => setEndDate(date)}
-                              dateFormat="MMMM d, yyyy"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholderText="Select dropoff date"
-                              minDate={startDate ? addDays(startDate, 1) : new Date()}
-                              excludeDates={[startDate]}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Dropoff Time */}
-                        <div className="drop-off-time w-full sm:w-1/2 md:w-1/3">
-                          <form className="max-w-[8rem] mx-auto">
-                            <input
-                              type="time"
-                              className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              min="09:00"
-                              max="18:00"
-                              value={endTime}
-                              onChange={(e) => setEndTime(e.target.value)}
-                            />
-                          </form>
-                        </div>
                       </div>
                     </div>
-                    <div className='flex gap-8 justify-between items-center text-left py-2'>
-                      <div className='flex gap-2 items-center'>
-                        <input type='checkbox' className='mx-2' />
-                        <p>Drop car off at different location</p>
+                    <div className='flex flex-col justify-center items-center'>
+                      <div className="w-full px-4 py-1 bg-white border-b-2 border-b-gray-300">
+                        <div className="flex items-center justify-between mb-4 space-x-4">
+                          {/* Pickup Date */}
+                          <div className="pickup-date w-full sm:w-1/2 md:w-1/3">
+                            <div className="relative max-w-sm">
+                              <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                              </div>
+                              <DatePicker
+                                selected={startDate}
+                                onChange={(date: Date) => setStartDate(date)}
+                                dateFormat="MMMM d, yyyy"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholderText="Select pickup date"
+                                minDate={new Date()}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Pickup Time */}
+                          <div className="pickup-time w-full sm:w-1/2 md:w-1/3">
+                            <form className="max-w-[8rem] mx-auto">
+                              <input
+                                type="time"
+                                className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                min="09:00"
+                                max="18:00"
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                              />
+                            </form>
+                          </div>
+
+                          {/* Dropoff Date */}
+                          <div className="drop-off-date w-full sm:w-1/2 md:w-1/3">
+                            <div className="relative">
+                              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 z-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                              </div>
+                              <DatePicker
+                                selected={endDate}
+                                onChange={(date: Date) => setEndDate(date)}
+                                dateFormat="MMMM d, yyyy"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholderText="Select dropoff date"
+                                minDate={startDate ? addDays(startDate, 1) : new Date()}
+                                excludeDates={[startDate]}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Dropoff Time */}
+                          <div className="drop-off-time w-full sm:w-1/2 md:w-1/3">
+                            <form className="max-w-[8rem] mx-auto">
+                              <input
+                                type="time"
+                                className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                min="09:00"
+                                max="18:00"
+                                value={endTime}
+                                onChange={(e) => setEndTime(e.target.value)}
+                              />
+                            </form>
+                          </div>
+                        </div>
                       </div>
-                      <div className='flex gap-2 items-center'>
-                        <input type='checkbox' checked={true} />
-                        <p>Driver aged between 30 ~ 65?</p>
+                      <div className='flex gap-8 justify-between items-center text-left py-2'>
+                        <div className='flex gap-2 items-center'>
+                          <input type='checkbox' className='mx-2' />
+                          <p>Drop car off at different location</p>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                          <input type='checkbox' />
+                          <p>Driver aged between 30 ~ 65?</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className='book-btn w-full mt-2'>
-                      <button className='btn w-full py-1 px-auto rounded-lg bg-gray-600 text-white border-[1px] border-gray-600 hover:text-black hover:bg-white'>Book Now</button>
+                      <div className='book-btn w-full mt-2'>
+                      <button className='btn w-full py-1 px-auto rounded-lg bg-gray-600 text-white border-[1px] border-gray-600 hover:text-black hover:bg-white transition-all duration-1000 ease-in-out hover:bg-lightseagreen'>
+                        Book Now
+                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -220,19 +235,17 @@ export default function Landing({
               <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><path d="M21.75 12c0 5.385-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12 6.615 2.25 12 2.25s9.75 4.365 9.75 9.75zm1.5 0C23.25 5.787 18.213.75 12 .75S.75 5.787.75 12 5.787 23.25 12 23.25 23.25 18.213 23.25 12zm-10.5 0V8.25a.75.75 0 0 0-1.5 0V12a.75.75 0 0 0 1.5 0zm-1.28.53l4.687 4.688a.75.75 0 0 0 1.06-1.06L12.53 11.47a.75.75 0 0 0-1.06 1.06z"></path></svg>
             </div>
           </div> */}
-          <div className='w-full px-[10%]'>
+          <div className='w-full px-[15%]'>
             <div className='references w-full'>
-              <div className='flex flex-col'>
+              <div className='flex flex-col pb-4 border-b-[2px] border-b-[gray-700]'>
                 <h1 className='text-3xl font-[700] text-black py-8 mt-4'>Our service gives you access to the biggest brands in car rental.</h1>
                 <div className='flex justify-start items-center gap-12 flex-wrap lg:flex-nowrap'>
-                  {/* <div className='flex flex-col justify-center'> */}
-                    {references.map((reference) => (
-                      <div key={reference.id} className='flex flex-col m-auto text-center'>
-                        <img src={reference.logo} className='w-auto h-8 object-contain shadow-lg' />
-                        <p className='mt-4'>{reference.heading}</p>
-                      </div>
-                    ))}
-                  {/* </div> */}
+                  {references.map((reference) => (
+                    <div key={reference.id} className='flex flex-col m-auto text-center'>
+                      <img src={reference.logo} className='w-auto h-8 object-contain shadow-lg' />
+                      <p className='mt-4'>{reference.heading}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -259,9 +272,55 @@ export default function Landing({
             </div>
           </div>
         </section>
+        <div>
+          <div>
+            <div className="relative z-0 w-full mt-5 group">
+              <form className="max-w-md mx-auto">
+                <div className="relative z-0 w-full mb-5 group">
+                    <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                    <input type="password" name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                    <input type="password" name="repeat_password" id="floating_repeat_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label htmlFor="floating_repeat_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
+                </div>
+                <div className="grid md:grid-cols-2 md:gap-6">
+                  <div className="relative z-0 w-full mb-5 group">
+                      <input type="text" name="floating_first_name" id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                      <label htmlFor="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
+                  </div>
+                  <div className="relative z-0 w-full mb-5 group">
+                      <input type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                      <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
+                  </div>
+                </div>
+                
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+              </form>
+            </div>
+            <div className="mt-8">
+              <form className="max-w-sm mx-auto">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                      <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                      <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                    </svg>
+                  </div>
+                  <input type="text" id="email-address-icon" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" />
+                </div>
+              </form>
+            </div>
+          </div>
         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
           Laravel v{laravelVersion} (PHP v{phpVersion})
         </footer>
+        </div>
       </div>
     </>
   );
