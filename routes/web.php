@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\VanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -62,6 +63,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
 	Route::get('/hired-car', [CarController::class, 'index']);
+});
+
+Route::middleware('auth')->group(function () {
+	Route::get('/hired-van', [VanController::class, 'index']);
 });
 
 require __DIR__ . '/auth.php';

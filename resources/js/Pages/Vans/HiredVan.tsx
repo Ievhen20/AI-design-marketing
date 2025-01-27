@@ -1,20 +1,26 @@
-// resources/js/pages/cars/HiredCar.tsx
+// resources/js/pages/cars/HiredVan.tsx
 
 import React, { FC } from 'react';
-import { Car } from '@types';
 import { Head, usePage } from '@inertiajs/react';
 import Header from '@/Components/Header';
 
-interface Props {
-  hiredCars: Car[];
+interface Van {
+  id: number;
+  model: string;
+  description: string;
+  hired_on: string;
 }
 
-const HiredCar: FC<Props> = ({ hiredCars }) => {
+interface Props {
+  hiredVans: Van[]; // Adjusted to reflect hiredVans instead of hiredCars
+}
+
+const HiredVan: FC<Props> = ({ hiredVans }) => {
   const auth = usePage().props.auth;
 
   return (
     <>
-      <Head title="Hired Cars" />
+      <Head title="Hired Vans" />
       <div className="text-black/50 dark:bg-black dark:text-white/50">
         <div className="relative flex items-center justify-center selection:bg-[#FF2D20] selection:text-white">
           <div className="relative w-full flex flex-col px-0 py-8">
@@ -23,29 +29,29 @@ const HiredCar: FC<Props> = ({ hiredCars }) => {
         </div>
         <section className='w-full px-6 pt-4'>
           <div className="max-w-7xl mx-auto p-6">
-            <h1 className="text-3xl font-semibold mb-6">Your Hired Cars</h1>
+            <h1 className="text-3xl font-semibold mb-6">Your Hired Vans</h1>
 
-            {hiredCars.length > 0 ? (
+            {hiredVans && hiredVans.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hiredCars.map((car) => (
-                  <div key={car.id} className="border p-4 rounded-lg shadow-lg">
-                    <h2 className="font-bold text-xl">{car.model}</h2>
-                    <p className="text-gray-600">{car.description}</p>
-                    <p className="text-green-500">Hired on: {car.hired_on}</p>
+                {hiredVans.map((van) => (
+                  <div key={van.id} className="border p-4 rounded-lg shadow-lg">
+                    <h2 className="font-bold text-xl">{van.model}</h2>
+                    <p className="text-gray-600">{van.description}</p>
+                    <p className="text-green-500">Hired on: {van.hired_on}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600">You have not hired any cars yet.</p>
+              <p className="text-gray-600">You have not hired any vans yet.</p>
             )}
           </div>
         </section>
         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-          {/* Footer content goes here */}
+          
         </footer>
       </div>
     </>
   );
 };
 
-export default HiredCar;
+export default HiredVan;
