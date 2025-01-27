@@ -3,7 +3,7 @@ import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import GuestNav from '@/Components/GuestNav';
+import Header from '@/Components/Header';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import DatePicker from 'react-datepicker';
 import Slider from "react-slick";
@@ -71,43 +71,7 @@ export default function HireVan({
       <div className="text-black/50 dark:bg-black dark:text-white/50">
         <div className="relative flex items-center justify-center selection:bg-[#FF2D20] selection:text-white">
           <div className="relative w-full flex flex-col px-0 py-8">
-            <header className="flex px-[5%] flex-col md:flex-row items-center justify-between">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex justify-center items-center px-4">
-                  <ApplicationLogo />
-                </div>
-                <div className="guest-access">
-                  <div className="flex justify-center items-center px-4">
-                    <GuestNav />
-                  </div>
-                </div>
-              </div>
-              <nav className="-mx-3 flex flex-1 justify-end">
-                {auth.user ? (
-                  <Link
-                    href={route('dashboard')}
-                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <>
-                    <Link
-                      href={route('login')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition text-nowrap hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Log in
-                    </Link>
-                    <Link
-                      href={route('register')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Register
-                    </Link>
-                  </>
-                )}
-              </nav>
-            </header>
+            <Header auth={auth} />
 
             <main className="mt-2 flex-1">
               <section
@@ -229,7 +193,7 @@ export default function HireVan({
                         <p>Drop car off at different location</p>
                       </div>
                       <div className='flex gap-2 items-center'>
-                        <input type='checkbox' checked={true} />
+                        <input type='checkbox' />
                         <p>Driver aged between 30 ~ 65?</p>
                       </div>
                     </div>

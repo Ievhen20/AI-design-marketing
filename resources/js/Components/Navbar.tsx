@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { label: 'Hired Car', route: '/hire-car' },
+    { label: 'Hired Car', route: '/hired-car' },
     { label: 'Hired Van', route: '/hire-van' },
     { label: 'About Us', route: '/about' },
     { label: 'Blog', route: '/blog' },
