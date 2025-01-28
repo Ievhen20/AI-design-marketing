@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\VanController;
@@ -68,5 +69,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 	Route::get('/hired-van', [VanController::class, 'index']);
 });
+
+// Admin middleware route
+Route::middleware(['auth', 'admin'])->group(function () {
+	Route::get('/admin', [HomeController::class, 'index']);
+});
+
 
 require __DIR__ . '/auth.php';
