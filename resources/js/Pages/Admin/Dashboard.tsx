@@ -1,30 +1,27 @@
-// resources/js/pages/cars/HiredVan.tsx
+// resources/js/pages/Admin/Dashboard.tsx
+import React from 'react';
+import Layout from '@/Components/Admin/Layout/Layout';
 
-import React, { FC } from 'react';
-import { Head, usePage } from '@inertiajs/react';
-import Header from '@/Components/Header';
-
-const Dashboard: FC = () => {
-  const auth = usePage().props.auth;
-
-  return (
-    <>
-      <Head title="Admin Dashboard" />
-      <div className="text-black/50 dark:bg-black dark:text-white/50">
-        <div className="relative flex items-center justify-center selection:bg-[#FF2D20] selection:text-white">
-          <div className="relative w-full flex flex-col px-0 py-8">
-            <Header auth={auth} />
-          </div>
-        </div>
-        <main>
-          <h1>Admin Dashboard</h1>
-        </main>
-        <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-          {/* Footer content here */}
-        </footer>
-      </div>
-    </>
-  );
+const Dashboard: React.FC = () => {
+    return (
+        <Layout>
+            <h1 className="text-3xl font-semibold mb-6">Dashboard</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="bg-white shadow-lg rounded-lg p-6">
+                    <h2 className="text-xl font-medium">Users Overview</h2>
+                    <p>Total Users: 120</p>
+                </div>
+                <div className="bg-white shadow-lg rounded-lg p-6">
+                    <h2 className="text-xl font-medium">Vehicles Overview</h2>
+                    <p>Total Vehicles: 75</p>
+                </div>
+                <div className="bg-white shadow-lg rounded-lg p-6">
+                    <h2 className="text-xl font-medium">Revenue</h2>
+                    <p>$45,000</p>
+                </div>
+            </div>
+        </Layout>
+    );
 };
 
 export default Dashboard;
