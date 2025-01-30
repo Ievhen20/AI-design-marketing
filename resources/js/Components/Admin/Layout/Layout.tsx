@@ -1,22 +1,36 @@
-// resources/js/Components/Admin/Layout/Layout.tsx
-import React from 'react';
-import Header from './Header';
-import Sidebar from './Sidebar';
+// resources/js/Layouts/AdminLayout.tsx
+
+import { ReactNode, useState } from "react";
+import Sidebar from "@/Components/Admin/Layout/Sidebar";
+import Header from "@/Components/Admin/Layout/Header";
 
 interface LayoutProps {
-    children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-    return (
-        <div className="flex h-screen bg-gray-100">
-            <Sidebar />
-            <div className="flex-1 flex flex-col">
-                <Header />
-                <main className="p-6 overflow-auto">{children}</main>
-            </div>
-        </div>
-    );
+const Layout = ({ children }: LayoutProps) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  return (
+    <div className="flex h-screen">
+      <Sidebar isSidebarOpen={isSidebarOpen} />
+
+      <div className="flex-1 flex flex-col">
+        <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        
+        <main
+          className={`flex-1 p-6 bg-gray-200 transition-all duration-300 ease-in-out ${
+            isSidebarOpen ? "ml-64" : "ml-0"
+          }`}
+        >
+          {children}
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default Layout;
