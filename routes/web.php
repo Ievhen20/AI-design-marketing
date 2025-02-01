@@ -76,7 +76,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/admin', [HomeController::class, 'index']);
 	
-	// CRUD Routes for Companies
 	Route::get('/admin/companies', [CompanyController::class, 'index'])->name('admin.company.index');
 	Route::get('/admin/new-company', [CompanyController::class, 'create'])->name('admin.company.create');
 	Route::post('/admin/create-company', [CompanyController::class, 'store'])->name('admin.company.store');

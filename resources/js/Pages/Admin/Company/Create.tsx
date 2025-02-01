@@ -21,7 +21,6 @@ const Create = () => {
 
   return (
     <Layout>
-      {/* <Head title="Create Company" /> */}
       <div className="max-w-2xl mx-auto mt-8">
         <h1 className="text-2xl font-bold text-gray-900">Create New Company</h1>
         <p className="mt-2 text-gray-600">Please provide the necessary details below to create a new company.</p>
