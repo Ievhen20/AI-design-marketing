@@ -1,9 +1,31 @@
 import { Link } from '@inertiajs/inertia-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import Layout from '@/Components/Admin/Layout/Layout';
+import Modal from '@/Components/Admin/Modal';
 
 const CompanyList: React.FC<{ companies: any[] }> = ({ companies }) => {
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [companyToDelete, setCompanyToDelete] = useState<number | null>(null);
+
+  const openModal = (companyId: number) => {
+    setCompanyToDelete(companyId);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCompanyToDelete(null);
+  };
+
+  const confirmDelete = () => {
+    if (companyToDelete !== null) {
+      Inertia.delete(`/admin/delete-company/${companyToDelete}`);
+      closeModal();
+    }
+  };
+
   return (
     <div>
       <Layout>
@@ -30,11 +52,7 @@ const CompanyList: React.FC<{ companies: any[] }> = ({ companies }) => {
                   <td className="px-4 py-2 border">
                     <Link href={`/admin/edit-company/${company.id}`} className="text-blue-500">Edit</Link>
                     <button
-                      onClick={() => {
-                        if (confirm('Are you sure you want to delete this company?')) {
-                          Inertia.delete(`/admin/delete-company/${company.id}`);
-                        }
-                      }}
+                      onClick={() => openModal(company.id)}
                       className="ml-4 text-red-500"
                     >
                       Delete
@@ -45,6 +63,15 @@ const CompanyList: React.FC<{ companies: any[] }> = ({ companies }) => {
             </tbody>
           </table>
         </div>
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={confirmDelete}
+          title="Delete Company"
+        >
+          <p>Are you sure you want to delete this company? This action cannot be undone.</p>
+        </Modal>
       </Layout>
     </div>
   );

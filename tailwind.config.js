@@ -18,6 +18,19 @@ export default {
       colors: {
         lightseagreen: '#20B2AA',
       },
+      animation: {
+        'remove-fall-down': 'fallDown 0.2s ease-out forwards',
+      },
+      keyframes: {
+        fallDown: {
+          '0%': {
+            transform: 'translateY(-100%)',
+          },
+          '100%': {
+            transform: 'translateY(120px)',
+          },
+        },
+      },
     },
   },
   plugins: [forms],
