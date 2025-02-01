@@ -1,5 +1,3 @@
-// resources/js/Layouts/AdminLayout.tsx
-
 import { ReactNode, useState } from "react";
 import Sidebar from "@/Components/Admin/Layout/Sidebar";
 import Header from "@/Components/Admin/Layout/Header";

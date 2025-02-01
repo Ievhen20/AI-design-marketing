@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTh, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -27,7 +29,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
         onClick={toggleSidebar}
         className="text-lg text-gray-900 font-semibold"
       >
-        <i className="ri-menu-line"></i> Active Icon
+        <FontAwesomeIcon icon={faBars} className="text-xl" />
       </button>
 
       <div className="ml-auto flex items-center">
@@ -39,7 +41,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
           onClick={toggleFullscreen}
           className="text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600"
         >
-          <i className="ri-fullscreen-line"> Full Screen </i>
+          <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} className="text-xl" />
         </button>
       </div>
     </div>
