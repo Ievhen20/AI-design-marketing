@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CompanyController;
+
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
@@ -73,6 +75,14 @@ Route::middleware('auth')->group(function () {
 // Admin middleware route
 Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/admin', [HomeController::class, 'index']);
+	
+	// CRUD Routes for Companies
+	Route::get('/admin/companies', [CompanyController::class, 'index'])->name('admin.company.index');
+	Route::get('/admin/new-company', [CompanyController::class, 'create'])->name('admin.company.create');
+	Route::post('/admin/create-company', [CompanyController::class, 'store'])->name('admin.company.store');
+	Route::get('/admin/edit-company/{id}', [CompanyController::class, 'edit'])->name('admin.company.edit');
+	Route::post('/admin/update-company/{id}', [CompanyController::class, 'update'])->name('admin.company.update');
+	Route::delete('/admin/delete-company/{id}', [CompanyController::class, 'destroy'])->name('admin.company.destroy');
 });
 
 
