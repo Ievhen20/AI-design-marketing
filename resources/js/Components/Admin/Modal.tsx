@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm, title, childr
       className={`fixed inset-0 bg-gray-500 bg-opacity-50 flex items-start justify-center z-50 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
     >
       <div
-        className={`bg-white p-6 rounded-lg w-full sm:w-96 transform transition-all ${
+        className={`bg-white p-6 rounded-lg w-full sm:w-[40%] transform transition-all ${
           isOpen ? 'animate-remove-fall-down' : 'transform translate-y-full'
         }`}
       >

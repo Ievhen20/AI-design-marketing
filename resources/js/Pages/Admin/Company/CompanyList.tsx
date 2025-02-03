@@ -1,13 +1,23 @@
 import { Link } from '@inertiajs/inertia-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import Layout from '@/Components/Admin/Layout/Layout';
 import Modal from '@/Components/Admin/Modal';
+import DataTable from 'react-data-table-component';
 
-const CompanyList: React.FC<{ companies: any[] }> = ({ companies }) => {
-  
+const CompanyList: React.FC<{ companies: any[]; totalCompanies: number; perPage: number; currentPage: number }> = ({ companies, totalCompanies, perPage, currentPage }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [companyToDelete, setCompanyToDelete] = useState<number | null>(null);
+  const [currentPageState, setCurrentPageState] = useState(currentPage);
+  const [rowsPerPage, setRowsPerPage] = useState(perPage);
+
+  useEffect(() => {
+    fetchCompanies(currentPageState, rowsPerPage);
+  }, [currentPageState, rowsPerPage]);
+
+  const fetchCompanies = (page: number, perPage: number) => {
+    Inertia.post('/admin/fetch-companies', { page, perPage }, { preserveState: true });
+  };
 
   const openModal = (companyId: number) => {
     setCompanyToDelete(companyId);
@@ -26,50 +36,84 @@ const CompanyList: React.FC<{ companies: any[] }> = ({ companies }) => {
     }
   };
 
+  // Columns for DataTable
+  const columns = [
+    {
+      name: 'ID',
+      selector: (row: any) => row.id,
+      sortable: true,
+    },
+    {
+      name: 'Country',
+      selector: (row: any) => row.country_name,
+      sortable: true,
+    },
+    {
+      name: 'City',
+      selector: (row: any) => row.city,
+      sortable: true,
+    },
+    {
+      name: 'Company Name',
+      selector: (row: any) => row.com_name,
+      sortable: true,
+    },
+    {
+      name: 'Actions',
+      cell: (row: any) => (
+        <div className="flex space-x-4">
+          <Link href={`/admin/edit-company/${row.id}`} className="text-blue-500">
+            Edit
+          </Link>
+          <button onClick={() => openModal(row.id)} className="text-red-500">
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  const handlePageChange = (page: number) => {
+    setCurrentPageState(page);
+  };
+
+  const handlePerPageChange = (newPerPage: number, page: number) => {
+    setRowsPerPage(newPerPage);
+    setCurrentPageState(page);
+  };
+
   return (
     <div>
       <Layout>
         <h1 className="text-2xl font-bold">Company List</h1>
-        <Link href="/admin/new-company" className="mt-4 inline-block text-blue-500">Create New Company</Link>
+        <Link href="/admin/new-company" className="mt-4 inline-block text-blue-500">
+          Create New Company
+        </Link>
         <div className="mt-6">
-          <table className="min-w-full table-auto border-collapse">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 border">ID</th>
-                <th className="px-4 py-2 border">Country</th>
-                <th className="px-4 py-2 border">City</th>
-                <th className="px-4 py-2 border">Company Name</th>
-                <th className="px-4 py-2 border">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {companies.map((company) => (
-                <tr key={company.id}>
-                  <td className="px-4 py-2 border">{company.id}</td>
-                  <td className="px-4 py-2 border">{company.country_name}</td>
-                  <td className="px-4 py-2 border">{company.city}</td>
-                  <td className="px-4 py-2 border">{company.com_name}</td>
-                  <td className="px-4 py-2 border">
-                    <Link href={`/admin/edit-company/${company.id}`} className="text-blue-500">Edit</Link>
-                    <button
-                      onClick={() => openModal(company.id)}
-                      className="ml-4 text-red-500"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            columns={columns}
+            data={companies}
+            pagination
+            paginationServer
+            paginationTotalRows={totalCompanies}
+            paginationPerPage={rowsPerPage}
+            onChangePage={handlePageChange}
+            onChangeRowsPerPage={handlePerPageChange}
+            sortIcon={<span>&#8597;</span>}
+            highlightOnHover
+            responsive
+            customStyles={{
+              headCells: {
+                style: {
+                  fontWeight: 'bold',
+                },
+              },
+            }}
+            paginationDefaultPage={currentPageState}
+          />
         </div>
 
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          onConfirm={confirmDelete}
-          title="Delete Company"
-        >
+        <Modal isOpen={isModalOpen} onClose={closeModal} onConfirm={confirmDelete} title="Delete Company">
           <p>Are you sure you want to delete this company? This action cannot be undone.</p>
         </Modal>
       </Layout>

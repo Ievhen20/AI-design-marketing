@@ -77,6 +77,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/admin', [HomeController::class, 'index']);
 	
 	Route::get('/admin/companies', [CompanyController::class, 'index'])->name('admin.company.index');
+	Route::post('/admin/fetch-companies', [CompanyController::class, 'fetch_companies'])->name('admin.company.fetch');
 	Route::get('/admin/new-company', [CompanyController::class, 'create'])->name('admin.company.create');
 	Route::post('/admin/create-company', [CompanyController::class, 'store'])->name('admin.company.store');
 	Route::get('/admin/edit-company/{id}', [CompanyController::class, 'edit'])->name('admin.company.edit');

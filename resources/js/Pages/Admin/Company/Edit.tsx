@@ -22,7 +22,7 @@ const EditCompany: React.FC<{ company: any }> = ({ company }) => {
   return (
     <Layout>
       <h1 className="text-2xl font-bold">EditCompany Company</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+      <form onSubmit={handleSubmit} className="w-1/2 space-y-4 mt-8 rounded-lg py-12 px-32 bg-white">
         <div>
           <label htmlFor="country_name" className="block text-sm font-medium">Country Name</label>
           <input
@@ -31,7 +31,7 @@ const EditCompany: React.FC<{ company: any }> = ({ company }) => {
             name="country_name"
             value={data.country_name}
             onChange={handleInputChange}
-            className="mt-1 p-2 border border-gray-300 rounded"
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
           />
           {errors.country_name && <p className="text-red-500 text-xs">{errors.country_name}</p>}
         </div>
@@ -44,7 +44,7 @@ const EditCompany: React.FC<{ company: any }> = ({ company }) => {
             name="city"
             value={data.city}
             onChange={handleInputChange}
-            className="mt-1 p-2 border border-gray-300 rounded"
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
           />
           {errors.city && <p className="text-red-500 text-xs">{errors.city}</p>}
         </div>
@@ -57,7 +57,7 @@ const EditCompany: React.FC<{ company: any }> = ({ company }) => {
             name="com_name"
             value={data.com_name}
             onChange={handleInputChange}
-            className="mt-1 p-2 border border-gray-300 rounded"
+            className="w-full mt-1 p-2 border border-gray-300 rounded"
           />
           {errors.com_name && <p className="text-red-500 text-xs">{errors.com_name}</p>}
         </div>

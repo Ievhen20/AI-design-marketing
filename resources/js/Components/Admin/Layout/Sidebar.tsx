@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -37,8 +39,9 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
       <div className="navigation">
         <div className="dashboard">
           <button
-              className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#f84525] hover:text-[#f84525] focus:outline-none"
+              className="w-full flex gap-2 text-left font-medium px-[16px] py-[8px] text-white bg-[#f84525] hover:text-[#f84525] focus:outline-none"
             >
+              <FontAwesomeIcon icon={faHome} className="text-xl" />
               Dashboard
             </button>
         </div>
