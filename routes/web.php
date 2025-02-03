@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CompanyController;
 
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\CarsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\VanController;
@@ -83,6 +84,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/admin/edit-company/{id}', [CompanyController::class, 'edit'])->name('admin.company.edit');
 	Route::post('/admin/update-company/{id}', [CompanyController::class, 'update'])->name('admin.company.update');
 	Route::delete('/admin/delete-company/{id}', [CompanyController::class, 'destroy'])->name('admin.company.destroy');
+
+	Route::get('/admin/cars', [CarsController::class, 'index'])->name('admin.car.index');
 });
 
 

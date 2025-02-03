@@ -16,12 +16,12 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
 
   const { user }: { user: User | null } = usePage().props.auth || {};
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
-  const [isParent1Open, setIsParent1Open] = useState(false);
+  const [isVehiclesOpen, setIsVehiclesOpen] = useState(false);
   const [isParent2Open, setIsParent2Open] = useState(false);
 
   // Toggle functions for parent navigation items
   const toggleCompany = () => setIsCompanyOpen(!isCompanyOpen);
-  const toggleParent1 = () => setIsParent1Open(!isParent1Open);
+  const toggleVehicles = () => setIsVehiclesOpen(!isVehiclesOpen);
   const toggleParent2 = () => setIsParent2Open(!isParent2Open);
 
   return (
@@ -77,30 +77,30 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
         <div className="user">
           <button
             className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#6c757d] hover:text-[#f84525] focus:outline-none"
-            onClick={toggleParent1}
+            onClick={toggleVehicles}
           >
-            Parent 1
+            Vehicles
           </button>
           <div
             className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${
-              isParent1Open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              isVehiclesOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            {isParent1Open && (
+            {isVehiclesOpen && (
               <div className="w-full bg-[#c2c7d0]">
-                <Link href="/child-1" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
+                <Link href="/admin/cars" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
                   <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
-                    Users
+                    CarList
                   </div>
                 </Link>
                 <Link href="/child-2" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
                   <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
-                    Customers
+                    VanList
                   </div>
                 </Link>
                 <Link href="/child-3" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
                   <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
-                    Officers
+                    VehicleTypes
                   </div>
                 </Link>
               </div>
