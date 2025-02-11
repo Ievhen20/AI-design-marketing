@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\CarRequest;
+use App\Models\Company;
 use App\Models\Car;
 use Inertia\Inertia;
 
 class CarsController extends Controller
 {
   public function index () {
+    $companies = Company::all();
+    return $companies;
+    exit;
     return Inertia::render('Admin/Car/CarList');
   }
 
