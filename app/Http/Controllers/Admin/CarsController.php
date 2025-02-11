@@ -12,8 +12,8 @@ use Inertia\Inertia;
 class CarsController extends Controller
 {
   public function index () {
-    $companies = Company::all();
-    return $companies;
+    $cars = Car::with('company');
+    return $cars;
     exit;
     return Inertia::render('Admin/Car/CarList');
   }

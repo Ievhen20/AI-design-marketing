@@ -118,20 +118,9 @@ export default function Landing({
               <div className="relative bottom-0 left-0 right-0 px-[15%] py-16 lg:absolute lg:top-[48vh]">
                 <div className="w-full flex gap-2 justify-around flex-wrap itmes-center bg-white shadow-xl rounded-lg p-8 lg:flex-nowrap z-50">
                   <div className="flex justify-between gap-12">
-                    <div className="flex flex-col justify-start">
-                      <div className="search-car">
-                        <select>
-                          <option>Select Car...</option>
-                          <option>2</option>
-                        </select>
-                      </div>
-                      <div className="pick-up-address">
-
-                      </div>
-                    </div>
                     <div className='flex flex-col justify-center items-center'>
                       <div className="w-full px-4 py-1 bg-white border-b-2 border-b-gray-300">
-                        <div className="flex items-center justify-between mb-4 space-x-4">
+                        <div className="flex items-center justify-between mb-4 space-x-8">
                           {/* Pickup Date */}
                           <div className="pickup-date w-full sm:w-1/2 md:w-1/3">
                             <div className="relative max-w-sm">
