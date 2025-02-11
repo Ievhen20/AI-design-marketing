@@ -69,9 +69,10 @@ const CarList: React.FC = () => {
         onSuccess: closeModal,
       });
     } else {
-      post("/admin/cars/store", formData, {
-        onSuccess: closeModal,
-      });
+      console.log(formData);
+      // post("/admin/cars/store", formData, {
+      //   onSuccess: closeModal,
+      // });
     }
   };
 
@@ -128,7 +129,7 @@ const CarList: React.FC = () => {
       {/* Modal */}
       {showModal && (
         <div
-          className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-1000"
+          className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-300"
           onClick={closeModal} // Close modal when clicking overlay
         >
           <div
