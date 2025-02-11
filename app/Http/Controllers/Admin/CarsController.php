@@ -11,52 +11,53 @@ use Inertia\Inertia;
 
 class CarsController extends Controller
 {
-  public function index () {
-    $cars = Car::with('company');
-    return $cars;
-    exit;
-    return Inertia::render('Admin/Car/CarList');
-  }
+    public function index()
+    {
+      $companies = Company::all();
+      $cars = Car::all();
+      return Inertia::render('Admin/Car/CarList', [
+        'companies' => $companies,
+        'cars' => $cars,
+      ]);
+    }
 
-  public function create()
-  {
-    return Inertia::render('Admin/Car/Create');
-  }
+    public function store(CarRequest $request)
+    {
+      $validatedData = $request->validated();
+      
+      if ($request->hasFile('image')) {
+        $validatedData['image'] = $request->file('image')->store('cars', 'public');
+      }
 
-  public function store(CarRequest $request)
-  {
-    $validatedData = $request->validated();
+      Car::create($validatedData);
 
-    Company::create($validatedData);
+      return redirect()->route('admin.car.index')->with('success', 'Car added successfully.');
+    }
 
-    return redirect()->route('admin.car.index')
-      ->with('message', 'Car created successfully!');
-  }
+    public function edit($id)
+    {
+        $car = Car::with('company')->findOrFail($id);
+        return response()->json($car);
+    }
 
-  public function edit($id)
-  {
-    $company = Car::findOrFail($id);
-    return Inertia::render('Admin/Car/Edit', [
-      'company' => $company
-    ]);
-  }
+    public function update(CarRequest $request, $id)
+    {
+        $car = Car::findOrFail($id);
+        $validatedData = $request->validated();
 
-  public function update(CompanyRequest $request, $id)
-  {
-    $car = Car::findOrFail($id);
-    $validatedData = $request->validated();
-    $car->update($validatedData);
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('cars', 'public');
+        }
 
-    return redirect()->route('admin.car.index');
-  }
+        $car->update($validatedData);
 
-  public function destroy($id)
-  {
-    $car = Car::findOrFail($id);
-    $car->delete();
+        return redirect()->route('admin.car.index')->with('success', 'Car updated successfully.');
+    }
 
-    return redirect()->route('admin.car.index')
-      ->with('message', 'Car deleted successfully!');
-  }
-
+    public function destroy($id)
+    {
+        Car::findOrFail($id)->delete();
+        return response()->json(['message' => 'Car deleted successfully.']);
+    }
 }
+

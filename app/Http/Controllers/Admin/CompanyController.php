@@ -17,7 +17,7 @@ class CompanyController extends Controller
     $perPage = 10;
 
     // Fetch companies with pagination (default to 10 companies per page)
-    $companies = Company::orderBy('created_at', 'desc')->paginate($perPage);
+    $companies = Company::orderBy('com_name', 'desc')->paginate($perPage);
 
     // Return the data to Inertia (including total count, companies per page, and the current page)
     return Inertia::render('Admin/Company/CompanyList', [

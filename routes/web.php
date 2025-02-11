@@ -74,18 +74,22 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin middleware route
-Route::middleware(['auth', 'admin'])->group(function () {
-	Route::get('/admin', [HomeController::class, 'index']);
-	
-	Route::get('/admin/companies', [CompanyController::class, 'index'])->name('admin.company.index');
-	Route::post('/admin/fetch-companies', [CompanyController::class, 'fetch_companies'])->name('admin.company.fetch');
-	Route::get('/admin/new-company', [CompanyController::class, 'create'])->name('admin.company.create');
-	Route::post('/admin/create-company', [CompanyController::class, 'store'])->name('admin.company.store');
-	Route::get('/admin/edit-company/{id}', [CompanyController::class, 'edit'])->name('admin.company.edit');
-	Route::post('/admin/update-company/{id}', [CompanyController::class, 'update'])->name('admin.company.update');
-	Route::delete('/admin/delete-company/{id}', [CompanyController::class, 'destroy'])->name('admin.company.destroy');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
 
-	Route::get('/admin/cars', [CarsController::class, 'index'])->name('admin.car.index');
+    Route::get('/companies', [CompanyController::class, 'index'])->name('admin.company.index');
+    Route::post('/fetch-companies', [CompanyController::class, 'fetch_companies'])->name('admin.company.fetch');
+    Route::get('/new-company', [CompanyController::class, 'create'])->name('admin.company.create');
+    Route::post('/create-company', [CompanyController::class, 'store'])->name('admin.company.store');
+    Route::get('/edit-company/{id}', [CompanyController::class, 'edit'])->name('admin.company.edit');
+    Route::post('/update-company/{id}', [CompanyController::class, 'update'])->name('admin.company.update');
+    Route::delete('/delete-company/{id}', [CompanyController::class, 'destroy'])->name('admin.company.destroy');
+
+    Route::get('/cars/', [CarsController::class, 'index'])->name('admin.car.index');
+    Route::post('/cars/store', [CarsController::class, 'store'])->name('admin.car.store');
+    Route::get('/cars/edit/{id}', [CarsController::class, 'edit'])->name('admin.car.edit');
+    Route::put('/cars/update/{id}', [CarsController::class, 'update'])->name('admin.car.update');
+    Route::delete('/cars/delete/{id}', [CarsController::class, 'destroy'])->name('admin.car.delete');
 });
 
 

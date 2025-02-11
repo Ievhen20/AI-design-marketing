@@ -23,7 +23,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
     <div
       className={`${
         isSidebarOpen ? "pl-64" : "pl-0"
-      } py-2 px-6 ml-2 bg-[#f8f4f3] flex items-center shadow-md sticky top-0 z-30`}
+      } py-2 px-6 ml-2 bg-[#f8f4f3] flex items-center shadow-md sticky top-0 z-5`}
     >
       <button
         onClick={toggleSidebar}

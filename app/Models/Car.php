@@ -23,7 +23,6 @@ class Car extends Model
     'color',
     'fuel_type',
     'in_service',
-    'cost',
     'image',
   ];
 

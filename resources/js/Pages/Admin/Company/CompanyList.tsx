@@ -85,10 +85,12 @@ const CompanyList: React.FC<{ companies: any[]; totalCompanies: number; perPage:
   return (
     <div>
       <Layout>
-        <h1 className="text-2xl font-bold">Company List</h1>
-        <Link href="/admin/new-company" className="mt-4 inline-block text-blue-500">
-          Create New Company
-        </Link>
+        <div className="flex gap-3 items-center">
+          <h1 className="text-2xl font-bold">Company List</h1>
+          <Link href="/admin/new-company" className="inline-block text-white px-4 py-1 bg-[#a76af7] rounded-md">
+            New +
+          </Link>
+        </div>
         <div className="mt-6">
           <DataTable
             columns={columns}

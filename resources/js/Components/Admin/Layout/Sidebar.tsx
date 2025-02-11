@@ -26,20 +26,20 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-64 h-full bg-[#f8f4f3] transition-transform duration-300 ease-in-out z-50 ${
+      className={`fixed top-0 left-0 w-64 h-full bg-[#f8f4f3] transition-transform duration-300 ease-in-out z-10 ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div className="flex items-center p-4 border-b border-b-gray-800">
         <h2 className="font-bold text-2xl">
-          LOREM <span className="bg-[#f84525] text-white px-2 rounded-md">IPSUM</span>
+          LOREM <span className="bg-[#a76af7] text-white px-2 rounded-md">IPSUM</span>
         </h2>
       </div>
       
       <div className="navigation">
         <div className="dashboard">
           <button
-              className="w-full flex gap-2 text-left font-medium px-[16px] py-[8px] text-white bg-[#f84525] hover:text-[#f84525] focus:outline-none"
+              className="w-full flex gap-2 text-left font-medium px-[16px] py-[8px] text-white bg-[#a76af7] hover:text-[#f84525] focus:outline-none"
             >
               <FontAwesomeIcon icon={faHome} className="text-xl" />
               Dashboard
