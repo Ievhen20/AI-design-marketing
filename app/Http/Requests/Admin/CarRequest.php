@@ -25,7 +25,6 @@ class CarRequest extends FormRequest
       'company_id' => 'required|exists:companies,id',
       'user_id' => 'required|exists:users,id',
       'model' => 'required|string|max:255',
-      'horse_power' => 'nullable|numeric|min:0',
       'manufactured_year' => 'nullable|digits:4',
       'color' => 'nullable|string|max:50',
       'fuel_type' => 'nullable|string|max:50',

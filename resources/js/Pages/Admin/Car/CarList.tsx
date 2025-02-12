@@ -21,9 +21,10 @@ const CarList: React.FC = () => {
   const { cars, companies } = usePage().props;
   const [showModal, setShowModal] = useState(false);
   const [editCar, setEditCar] = useState<Car | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const currentYear = new Date().getFullYear();
 
-  const { data, setData, post, put, processing, reset } = useForm({
+  const { data, setData, post, processing, reset } = useForm({
     id: "",
     model: "",
     company_id: "",
@@ -49,30 +50,62 @@ const CarList: React.FC = () => {
       reset();
       setEditCar(null);
     }
+    setErrors({});
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
     reset();
+    setErrors({});
+  };
+
+  const validateForm = () => {
+    let newErrors: Record<string, string> = {};
+  
+    if (!data.model.trim()) newErrors.model = "Model is required.";
+    if (!data.company_id) newErrors.company_id = "Company is required.";
+    if (!data.fuel_type) newErrors.fuel_type = "Fuel type is required.";
+    if (!data.manufactured_year) {
+      newErrors.manufactured_year = "Year is required.";
+    } else {
+      const year = Number(data.manufactured_year);
+      if (isNaN(year) || year < 1950 || year > currentYear) {
+        newErrors.manufactured_year = `Year must be between 1950 and ${currentYear}.`;
+      }
+    }
+    if (!data.cost) {
+      newErrors.cost = "Cost is required.";
+    } else if (Number(data.cost) <= 0) {
+      newErrors.cost = "Cost must be a positive number.";
+    }
+  
+    setErrors(newErrors);
+    console.log(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (value) formData.append(key, value as any);
     });
 
+    console.log("Submitting FormData:", data);
+
     if (editCar) {
-      put(`/admin/cars/update/${editCar.id}`, formData, {
+      post(`/admin/cars/update/${editCar.id}`, {
+        data: formData,
         onSuccess: closeModal,
       });
     } else {
-      console.log(formData);
-      // post("/admin/cars/store", formData, {
-      //   onSuccess: closeModal,
-      // });
+      post("/admin/cars/store", {
+        data: formData,
+        onSuccess: closeModal,
+      });
     }
   };
 
@@ -130,26 +163,21 @@ const CarList: React.FC = () => {
       {showModal && (
         <div
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-300"
-          onClick={closeModal} // Close modal when clicking overlay
+          onClick={closeModal}
         >
           <div
             className="bg-white rounded-md p-6 w-full max-w-lg relative"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            onClick={(e) => e.stopPropagation()}
           >
             <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800" onClick={closeModal}>
               ✖
             </button>
             <h2 className="text-xl mb-3">{editCar ? "Edit Car" : "Add Car"}</h2>
-            <form onSubmit={handleSubmit} className="grid gap-4">
+            {/* <form onSubmit={handleSubmit} className="grid gap-4"> */}
               <div className="flex flex-col">
                 <label className="font-medium">Model:</label>
-                <input
-                  type="text"
-                  className="border p-2 rounded"
-                  value={data.model}
-                  onChange={(e) => setData("model", e.target.value)}
-                  required
-                />
+                <input type="text" className="border p-2 rounded" value={data.model} onChange={(e) => setData("model", e.target.value)} />
+                {errors.model && <span className="text-red-500">{errors.model}</span>}
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Company:</label>
@@ -166,6 +194,7 @@ const CarList: React.FC = () => {
                     </option>
                   ))}
                 </select>
+                {errors.company_id && <span className="text-red-500">{errors.company_id}</span>}
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Fuel Type:</label>
@@ -178,6 +207,7 @@ const CarList: React.FC = () => {
                   <option value="Petrol">Petrol</option>
                   <option value="Diesel">Diesel</option>
                 </select>
+                {errors.fuel_type && <span className="text-red-500">{errors.fuel_type}</span>}
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Manufacture Year:</label>
@@ -190,6 +220,7 @@ const CarList: React.FC = () => {
                   onChange={(e) => setData("manufactured_year", e.target.value)}
                   required
                 />
+                {errors.manufactured_year && <span className="text-red-500">{errors.manufactured_year}</span>}
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Price per day:</label>
@@ -201,15 +232,16 @@ const CarList: React.FC = () => {
                   onChange={(e) => setData("cost", e.target.value)}
                   required
                 />
+                {errors.cost && <span className="text-red-500">{errors.cost}</span>}
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Car Image:</label>
                 <input type="file" className="border p-2 rounded" onChange={(e) => e.target.files && setData("image", e.target.files[0])} />
               </div>
-              <button type="submit" disabled={processing} className="bg-green-500 text-white px-4 py-2 rounded">
+              <button type="submit" disabled={processing} onClick={handleSubmit} className="bg-green-500 text-white px-4 py-2 rounded">
                 {processing ? "Saving..." : "Save"}
               </button>
-            </form>
+            {/* </form> */}
           </div>
         </div>
       )}

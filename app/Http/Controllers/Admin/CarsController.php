@@ -29,7 +29,8 @@ class CarsController extends Controller
         $validatedData['image'] = $request->file('image')->store('cars', 'public');
       }
 
-      Car::create($validatedData);
+      // return $request->get('data');
+      // exit;
 
       return redirect()->route('admin.car.index')->with('success', 'Car added successfully.');
     }
