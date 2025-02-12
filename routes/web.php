@@ -88,8 +88,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/cars/', [CarsController::class, 'index'])->name('admin.car.index');
     Route::post('/cars/store', [CarsController::class, 'store'])->name('admin.car.store');
     Route::get('/cars/edit/{id}', [CarsController::class, 'edit'])->name('admin.car.edit');
-    Route::put('/cars/update/{id}', [CarsController::class, 'update'])->name('admin.car.update');
-    Route::delete('/cars/delete/{id}', [CarsController::class, 'destroy'])->name('admin.car.delete');
+    Route::post('/cars/update/{id}', [CarsController::class, 'update'])->name('admin.car.update');
+    Route::post('/cars/delete/{id}', [CarsController::class, 'delete'])->name('admin.car.delete');
 });
 
 

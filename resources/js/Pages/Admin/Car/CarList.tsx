@@ -23,6 +23,8 @@ const CarList: React.FC = () => {
   const [editCar, setEditCar] = useState<Car | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const currentYear = new Date().getFullYear();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [carToRemove, setCarToRemove] = useState<number | null>(null);
 
   const { data, setData, post, processing, reset } = useForm({
     id: "",
@@ -33,6 +35,10 @@ const CarList: React.FC = () => {
     cost: "",
     image: null as File | null,
   });
+
+  const handleFileChange = (e) => {
+    setData('image', e.target.files[0]);
+};
 
   const openModal = (car: Car | null = null) => {
     if (car) {
@@ -109,6 +115,27 @@ const CarList: React.FC = () => {
     }
   };
 
+  const handleRemove = (carId: number) => {
+    setCarToRemove(carId);
+    setShowConfirmModal(true);
+  };
+  
+  const confirmRemove = () => {
+    if (carToRemove) {
+      // Send the delete request using Inertia's post method with a DELETE method
+      post(route('admin.car.delete', carToRemove), {
+        method: 'delete',
+        onSuccess: () => {
+          setShowConfirmModal(false);
+          setCarToRemove(null);
+        },
+        onError: (error) => {
+          console.error('Error deleting car:', error);
+        }
+      });
+    }
+  };
+
   return (
     <Layout>
       <div className="p-4">
@@ -123,6 +150,7 @@ const CarList: React.FC = () => {
           <thead className="bg-purple-300 text-[#171717]">
             <tr>
               <th className="p-2">No</th>
+              <th className="p-2">Image</th>
               <th className="p-2">Model</th>
               <th className="p-2">Company</th>
               <th className="p-2">Year</th>
@@ -135,15 +163,25 @@ const CarList: React.FC = () => {
             {cars.length > 0 ? (
               cars.map((car, index) => (
                 <tr key={car.id} className="border border-gray-300">
-                  <td className="p-2">{index + 1}</td>
+                  <td className="p-2 text-cemter">{index + 1}</td>
+                  <td className="p-2">
+                    {car.image ? (
+                      <img src={`/storage/${car.image}`} alt={car.model} className="w-20 object-contain" />
+                    ) : (
+                      <img src="/assets/img/car1.png" alt="Default car" className="w-20 object-contain" />
+                    )}
+                  </td>
                   <td className="p-2">{car.model}</td>
                   <td className="p-2">{car.company.com_name}</td>
                   <td className="p-2">{car.manufactured_year}</td>
                   <td className="p-2">{car.fuel_type}</td>
                   <td className="p-2">${car.cost}</td>
-                  <td className="p-2">
+                  <td className="p-2" data-id={car.id}>
                     <button onClick={() => openModal(car)} className="bg-blue-500 text-white px-2 py-1 rounded">
                       Edit
+                    </button>
+                    <button onClick={() => handleRemove(car.id)} className="bg-red-500 text-white px-2 py-1 rounded ml-2">
+                      Remove
                     </button>
                   </td>
                 </tr>
@@ -173,7 +211,6 @@ const CarList: React.FC = () => {
               ✖
             </button>
             <h2 className="text-xl mb-3">{editCar ? "Edit Car" : "Add Car"}</h2>
-            {/* <form onSubmit={handleSubmit} className="grid gap-4"> */}
               <div className="flex flex-col">
                 <label className="font-medium">Model:</label>
                 <input type="text" className="border p-2 rounded" value={data.model} onChange={(e) => setData("model", e.target.value)} />
@@ -236,12 +273,30 @@ const CarList: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <label className="font-medium">Car Image:</label>
-                <input type="file" className="border p-2 rounded" onChange={(e) => e.target.files && setData("image", e.target.files[0])} />
+                <input type="file" name="image" className="border p-2 rounded" onChange={handleFileChange} />
               </div>
-              <button type="submit" disabled={processing} onClick={handleSubmit} className="bg-green-500 text-white px-4 py-2 rounded">
+              <button type="submit" disabled={processing} onClick={handleSubmit} className="bg-green-500 text-white px-4 py-2 w-full mt-2 rounded">
                 {processing ? "Saving..." : "Save"}
               </button>
-            {/* </form> */}
+          </div>
+        </div>
+      )}
+      {/* Remove Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-300" onClick={() => setShowConfirmModal(false)}>
+          <div className="bg-white rounded-md p-6 w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+            <button className="absolute top-7 right-3 text-gray-500 hover:text-gray-800" onClick={() => setShowConfirmModal(false)}>
+              ✖
+            </button>
+            <h2 className="text-xl mb-3">Are you sure you want to remove this car?</h2>
+            <div className="flex justify-between">
+              <button onClick={() => setShowConfirmModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded">
+                Cancel
+              </button>
+              <button onClick={confirmRemove} className="bg-red-500 text-white px-4 py-2 rounded">
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       )}
