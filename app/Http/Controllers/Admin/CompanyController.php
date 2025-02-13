@@ -13,13 +13,10 @@ class CompanyController extends Controller
 
   public function index()
   {
-    // Default pagination values
     $perPage = 10;
 
-    // Fetch companies with pagination (default to 10 companies per page)
     $companies = Company::orderBy('com_name', 'desc')->paginate($perPage);
 
-    // Return the data to Inertia (including total count, companies per page, and the current page)
     return Inertia::render('Admin/Company/CompanyList', [
       'companies' => $companies->items(),
       'totalCompanies' => $companies->total(),
@@ -28,20 +25,18 @@ class CompanyController extends Controller
     ]);
   }
 
-  // Fetch paginated companies for dynamic updates
   public function fetch_companies(Request $request)
   {
       $perPage = $request->get('perPage', 10);
       $page = $request->get('page', 1);
 
-      // Use the paginate method to get data with proper pagination
       $companies = Company::orderBy('created_at', 'desc')->paginate($perPage);
 
       return Inertia::render('Admin/Company/CompanyList', [
           'companies' => $companies->items(),
           'totalCompanies' => $companies->total(),
           'perPage' => $perPage,
-          'currentPage' => $companies->currentPage(),  // Ensure this is passed
+          'currentPage' => $companies->currentPage(),
       ]);
   }
 

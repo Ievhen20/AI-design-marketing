@@ -38,7 +38,7 @@ const CarList: React.FC = () => {
 
   const handleFileChange = (e) => {
     setData('image', e.target.files[0]);
-};
+  };
 
   const openModal = (car: Car | null = null) => {
     if (car) {
@@ -87,7 +87,6 @@ const CarList: React.FC = () => {
     }
   
     setErrors(newErrors);
-    console.log(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -99,8 +98,6 @@ const CarList: React.FC = () => {
     Object.entries(data).forEach(([key, value]) => {
       if (value) formData.append(key, value as any);
     });
-
-    console.log("Submitting FormData:", data);
 
     if (editCar) {
       post(`/admin/cars/update/${editCar.id}`, {
@@ -122,7 +119,6 @@ const CarList: React.FC = () => {
   
   const confirmRemove = () => {
     if (carToRemove) {
-      // Send the delete request using Inertia's post method with a DELETE method
       post(route('admin.car.delete', carToRemove), {
         method: 'delete',
         onSuccess: () => {
@@ -197,7 +193,7 @@ const CarList: React.FC = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* Create Car Modal */}
       {showModal && (
         <div
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-300"
@@ -289,7 +285,7 @@ const CarList: React.FC = () => {
               ✖
             </button>
             <h2 className="text-xl mb-3">Are you sure you want to remove this car?</h2>
-            <div className="flex justify-between">
+            <div className="flex justify-between px-4">
               <button onClick={() => setShowConfirmModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded">
                 Cancel
               </button>
