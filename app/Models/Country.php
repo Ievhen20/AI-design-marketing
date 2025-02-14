@@ -9,10 +9,6 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'capital', 'language', 'banner', 'img',];
-
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-},
+    protected $fillable = ['name', 'capital', 'language', 'banner', 'img'];
+    
+}
