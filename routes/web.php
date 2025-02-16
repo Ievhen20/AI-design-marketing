@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CompanyController;
 
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CarsController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\VanController;
@@ -56,8 +57,8 @@ Route::get('/contact', function () {
 });
 
 Route::get('/dashboard', function () {
-	return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+	return Inertia::render('Landing');
+})->middleware(['auth', 'verified'])->name('landing');
 
 Route::middleware('auth')->group(function () {
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -76,6 +77,10 @@ Route::middleware('auth')->group(function () {
 // Admin middleware route
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
+
+    Route::get('/countries', [CountryController::class, 'index'])->name('admin.country.index');
+	Route::post('/countries/store', [CountryController::class, 'store'])->name('admin.country.store');
+	Route::post('/countries/update/{id}', [CountryController::class, 'update'])->name('admin.country.update');
 
     Route::get('/companies', [CompanyController::class, 'index'])->name('admin.company.index');
     Route::post('/fetch-companies', [CompanyController::class, 'fetch_companies'])->name('admin.company.fetch');

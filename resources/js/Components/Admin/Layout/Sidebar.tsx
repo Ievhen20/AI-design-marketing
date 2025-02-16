@@ -50,7 +50,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
             <button className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#6c757d] hover:text-[#f84525] focus:outline-none"
               onClick={toggleCompany}
             >
-              Companies
+              Nations & Companies
             </button>
             <div
               className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${
@@ -59,6 +59,11 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
             >
               {isCompanyOpen && (
                 <div className="w-full bg-[#c2c7d0]">
+                  <Link href="/admin/countries" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
+                    <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
+                      Countries
+                    </div>
+                  </Link>
                   <Link href="/admin/new-company" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
                     <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
                       New Company
@@ -74,7 +79,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
             </div>
           </div>
         )}
-        <div className="user">
+        <div className="vehicles">
           <button
             className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#6c757d] hover:text-[#f84525] focus:outline-none"
             onClick={toggleVehicles}
@@ -108,7 +113,6 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
           </div>
         </div>
 
-        {/* Parent 2 */}
         <div className="cars">
           <button
             className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#6c757d] hover:text-[#f84525] focus:outline-none"
