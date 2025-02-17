@@ -129,15 +129,27 @@ const CountryList: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {countries && countries.length > 0 ? (
+                {countries.length > 0 ? (
                   countries.map((country, index) => (
                     <tr key={country.id} className="border border-gray-300">
                       <td className="p-2">{index + 1}</td>
                       <td className="p-2">{country.name}</td>
                       <td className="p-2">{country.capital}</td>
                       <td className="p-2">{country.language}</td>
-                      <td className="p-2">{country.banner}</td>
-                      <td className="p-2">{country.img}</td>
+                      <td className="p-2">
+                      {country.banner ? (
+                        <img src={`/storage/${country.banner}`} alt="Banner" className="w-20 object-contain" />
+                      ) : (
+                        <img src="/assets/img/car1.png" alt="Default Banner" className="w-20 object-contain" />
+                      )}
+                      </td>
+                      <td className="p-2">
+                      {country.img ? (
+                        <img src={`/storage/${country.img}`} alt="Picture" className="w-20 object-contain" />
+                      ) : (
+                        <img src="/assets/img/car3.png" alt="Default Picture" className="w-20 object-contain" />
+                      )}
+                      </td>
                       <td className="p-2">
                         <div className="flex gap-2">
                           <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => viewModal(country)}>Edit</button>
@@ -169,7 +181,7 @@ const CountryList: React.FC = () => {
               <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800" onClick={() => setOpenModal(false)}>
                 ✖
               </button>
-              <h2 className="text-xl mb-3">{editCar ? "Edit Car" : "Add Car"}</h2>
+              <h2 className="text-xl mb-3">{editCountry ? "Edit Car" : "Add a new Car"}</h2>
                 <div className="flex flex-col mt-4">
                   <input type="text" className="border p-2 rounded" value={data.name} onChange={(e) => setData("name", e.target.value)} placeholder="Name of Country" />
                   {errors.name && <span className="text-red-500">{errors.name}</span>}
