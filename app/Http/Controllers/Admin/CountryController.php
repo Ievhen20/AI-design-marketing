@@ -51,8 +51,64 @@ class CountryController extends Controller
     return "Store Country";
   }
 
-  public function update() {
-    return "Update a country";
+  public function update(Request $request, $id) {
+    try {
+        $country = Country::findOrFail($id);
+
+        if ($request->hasFile('banner')) {
+            if ($country->banner) {
+                $bannerFilePath = $country->banner;
+                $bannerFileName = basename($bannerFilePath);
+                Storage::disk('public')->delete('banner/' . $bannerFileName);
+            }
+            $bannerPath = $request->file('banner')->store('banner', 'public');
+        } else {
+            $bannerPath = $country->banner;
+        }
+
+        if ($request->hasFile('img')) {
+            if ($country->img) {
+                $imgFilePath = $country->img;
+                $imgFileName = basename($imgFilePath);
+                Storage::disk('public')->delete('countries/' . $imgFileName);
+            }
+            $imgPath = $request->file('img')->store('countries', 'public');
+        } else {
+            $imgPath = $country->img;
+        }
+
+        $country->update([
+          'name' => $request->name,
+          'capital' => $request->capital,
+          'language' => $request->language,
+          'banner' => $bannerPath,
+          'img' => $imgPath,
+        ]);
+
+        return redirect()->route('admin.countries.index')->with('success', 'Country updated successfully!');
+        
+    } catch (\Exception $e) {
+        return back()->withErrors(['error' => 'Something went wrong!']);
+    }
+  }
+
+  public function delete ($id) {
+    try {
+      $country = Country::findOrFail($id);
+      
+      if ($country->banner) {
+          Storage::disk('public')->delete($country->banner);
+      }
+      if ($country->img) {
+        Storage::disk('public')->delete($country->img);
+      }
+
+      $country->delete();
+
+      return redirect()->route('admin.countries.index')->with('success', 'Country deleted successfully.');
+    } catch (\Exception $e) {
+      return back()->withErrors(['error' => 'Something went wrong!']);
+    }
   }
 
 }

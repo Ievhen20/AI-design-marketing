@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import Layout from '@/Components/Admin/Layout/Layout';
+import DeleteModal from '@/Components/DeleteModal';
 
 interface Country {
   id: number;
@@ -16,6 +17,8 @@ const CountryList: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [editCountry, setEditCountry] = useState<Country | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedCountryId, setSelectedCountryId] = useState<number | null>(null);
 
   const [previewBanner, setPreviewBanner] = useState<string | null>(null);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
@@ -40,6 +43,8 @@ const CountryList: React.FC = () => {
         banner: null,
         img: null,
       });
+      setPreviewBanner(country.banner ? `/storage/${country.banner}` : null);
+      setPreviewImg(country.img ? `/storage/${country.img}` : null);
     } else {
       reset();
       setEditCountry(null);
@@ -103,6 +108,19 @@ const CountryList: React.FC = () => {
     }
   };
 
+  const confirmDelete = (id: number) => {
+    setSelectedCountryId(id);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    if (selectedCountryId) {
+      post(`/admin/countries/delete-country/${selectedCountryId}`, {
+        onSuccess: () => setDeleteModalOpen(false),
+      });
+    }
+  };
+
   return (
 
     <>
@@ -153,7 +171,7 @@ const CountryList: React.FC = () => {
                       <td className="p-2">
                         <div className="flex gap-2">
                           <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => viewModal(country)}>Edit</button>
-                          <button className="bg-red-500 text-white px-2 py-1 rounded ml-2">Remove</button>
+                          <button className="bg-red-500 text-white px-2 py-1 rounded ml-2" onClick={() => confirmDelete(country.id)}>Remove</button>
                         </div>
                       </td>
                     </tr>
@@ -226,6 +244,13 @@ const CountryList: React.FC = () => {
             </div>
           </div>
         )}
+        <DeleteModal
+          isOpen={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={handleDelete}
+          title="Delete Country"
+          description="Are you sure you want to delete this country? This action cannot be undone."
+        />
       </Layout>
     </>
 

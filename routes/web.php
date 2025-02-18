@@ -81,6 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/countries', [CountryController::class, 'index'])->name('admin.country.index');
 	Route::post('/countries/store', [CountryController::class, 'store'])->name('admin.country.store');
 	Route::post('/countries/update/{id}', [CountryController::class, 'update'])->name('admin.country.update');
+    Route::post('/countries/delete-country/{id}', [CountryController::class, 'delete'])->name('admin.country.delete');
 
     Route::get('/companies', [CompanyController::class, 'index'])->name('admin.company.index');
     Route::post('/fetch-companies', [CompanyController::class, 'fetch_companies'])->name('admin.company.fetch');
