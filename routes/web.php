@@ -99,6 +99,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/cars/delete/{id}', [CarsController::class, 'delete'])->name('admin.car.delete');
 
 	Route::get('/vans', [VansController::class, 'index'])->name('admin.vans.index');
+	Route::post('/vans/store', [VansController::class, 'store'])->name('admin.vans.store');
+    Route::get('/vans/edit/{id}', [VansController::class, 'edit'])->name('admin.vans.edit');
+    Route::post('/vans/update/{id}', [VansController::class, 'update'])->name('admin.vans.update');
+    Route::post('/vans/delete/{id}', [VansController::class, 'delete'])->name('admin.vans.delete');
 });
 
 

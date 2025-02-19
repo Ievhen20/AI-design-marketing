@@ -98,7 +98,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
                     CarList
                   </div>
                 </Link>
-                <Link href="/child-2" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
+                <Link href="/admin/vans" className="w-full block bg-[#c2c7d0] py-[6px] text-white hover:text-[#f84525]">
                   <div className="pt-1 py-2 border-l-[6px] border-l-white px-[16px]">
                     VanList
                   </div>
