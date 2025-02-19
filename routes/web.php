@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CarsController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\VansController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\VanController;
@@ -96,6 +97,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/cars/edit/{id}', [CarsController::class, 'edit'])->name('admin.car.edit');
     Route::post('/cars/update/{id}', [CarsController::class, 'update'])->name('admin.car.update');
     Route::post('/cars/delete/{id}', [CarsController::class, 'delete'])->name('admin.car.delete');
+
+	Route::get('/vans', [VansController::class, 'index'])->name('admin.vans.index');
 });
 
 
