@@ -120,7 +120,7 @@ const VanList: React.FC = () => {
   
   const confirmRemove = () => {
     if (vanToRemove) {
-      post(route('admin.car.delete', vanToRemove), {
+      post(route('admin.vans.delete', vanToRemove), {
         method: 'delete',
         onSuccess: () => {
           setShowConfirmModal(false);
