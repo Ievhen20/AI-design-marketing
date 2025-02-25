@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\VansController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ConfirmLogController;
 use App\Http\Controllers\VanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::get('/', function () {
 		'phpVersion' => PHP_VERSION,
 	]);
 });
+
+Route::get('/confirm-log', [ConfirmLogController::class, 'index'])->name('confirm.index');
 
 Route::get('/hire-car', function () {
 	return Inertia::render('HireCar', [
