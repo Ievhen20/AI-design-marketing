@@ -185,7 +185,7 @@ const VanList: React.FC = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="p-2 text-center bg-white">
+                <td colSpan={8} className="p-2 text-center bg-white">
                   No data available
                 </td>
               </tr>
