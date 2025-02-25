@@ -19,6 +19,10 @@ return new class extends Migration
       $table->string('password');
       $table->string('user_type')->nullable();
       $table->string('avatar')->nullable();
+      $table->string('subscription_id')->nullable();
+      $table->integer('memberion_level')->default(0);
+      $table->boolean('auto_renew')->default(0);
+      $table->date('expiry_date')->nullable();
       $table->rememberToken();
       $table->timestamps();
     });

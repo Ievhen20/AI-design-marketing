@@ -23,6 +23,10 @@ class User extends Authenticatable
     'password',
     'user_type',
     'avatar',
+    'subscription_id',
+    'membership_level',
+    'auto_renew',
+    'expiry_date',
   ];
 
   /**

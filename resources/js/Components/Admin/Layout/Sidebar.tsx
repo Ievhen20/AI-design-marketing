@@ -17,12 +17,12 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
   const { user }: { user: User | null } = usePage().props.auth || {};
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
   const [isVehiclesOpen, setIsVehiclesOpen] = useState(false);
-  const [isParent2Open, setIsParent2Open] = useState(false);
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
 
   // Toggle functions for parent navigation items
   const toggleCompany = () => setIsCompanyOpen(!isCompanyOpen);
   const toggleVehicles = () => setIsVehiclesOpen(!isVehiclesOpen);
-  const toggleParent2 = () => setIsParent2Open(!isParent2Open);
+  const toggleUsers = () => setIsUsersOpen(!isUsersOpen);
 
   return (
     <div
@@ -113,22 +113,22 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen }) => {
           </div>
         </div>
 
-        <div className="cars">
+        <div className="users">
           <button
             className="w-full text-left font-medium px-[16px] py-[8px] text-white bg-[#6c757d] hover:text-[#f84525] focus:outline-none"
-            onClick={toggleParent2}
+            onClick={toggleUsers}
           >
-            Parent 2
+            Plans & Orders
           </button>
           <div
             className={`transition-all duration-300 ease-in-out overflow-hidden ml-4 ${
-              isParent2Open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              isUsersOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            {isParent2Open && (
+            {isUsersOpen && (
               <div className="space-y-2">
-                <Link href="/child-a" className="block text-gray-600 hover:text-[#f84525]">Child A</Link>
-                <Link href="/child-b" className="block text-gray-600 hover:text-[#f84525]">Child B</Link>
+                <Link href="/admin/plans" className="block text-gray-600 hover:text-[#f84525]">Manage Plans</Link>
+                <Link href="/child-b" className="block text-gray-600 hover:text-[#f84525]">Orders</Link>
               </div>
             )}
           </div>
